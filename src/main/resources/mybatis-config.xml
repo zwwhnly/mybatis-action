@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.zwwhnly.mybatisaction.model"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC">
+                <property name="" value=""/>
+            </transactionManager>
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis_action_db"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/zwwhnly/mybatisaction/mapper/CountryMapper.xml"/>
+        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysUserMapper.xml"/>
+        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysRoleMapper.xml"/>
+        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysPrivilegeMapper.xml"/>
+        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysUserRoleMapper.xml"/>
+        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysRolePrivilegeMapper.xml"/>
+    </mappers>
+</configuration>
