@@ -16,12 +16,12 @@
     </select>
     <select id="selectAll" resultType="com.zwwhnly.mybatisaction.model.SysUser">
         SELECT id,
-               user_name     userName,
-               user_password userPassword,
-               user_email    userEmail,
-               user_info     userInfo,
-               head_img      headImg,
-               create_time   createTime
+               user_name,
+               user_password,
+               user_email,
+               user_info,
+               head_img,
+               create_time
         FROM sys_user
     </select>
 </mapper>

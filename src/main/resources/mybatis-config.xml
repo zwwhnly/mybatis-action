@@ -21,17 +21,18 @@
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/mybatis_action_db"/>
                 <property name="username" value="root"/>
-                <property name="password" value=""/>
+                <property name="password" value="root"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
-        <mapper resource="com/zwwhnly/mybatisaction/mapper/CountryMapper.xml"/>
-        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysUserMapper.xml"/>
-        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysRoleMapper.xml"/>
-        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysPrivilegeMapper.xml"/>
-        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysUserRoleMapper.xml"/>
-        <mapper resource="com/zwwhnly/mybatisaction/mapper/SysRolePrivilegeMapper.xml"/>
+        <!--<mapper resource="com/zwwhnly/mybatisaction/mapper/CountryMapper.xml"/>-->
+        <!--<mapper resource="com/zwwhnly/mybatisaction/mapper/SysUserMapper.xml"/>-->
+        <!--<mapper resource="com/zwwhnly/mybatisaction/mapper/SysRoleMapper.xml"/>-->
+        <!--<mapper resource="com/zwwhnly/mybatisaction/mapper/SysPrivilegeMapper.xml"/>-->
+        <!--<mapper resource="com/zwwhnly/mybatisaction/mapper/SysUserRoleMapper.xml"/>-->
+        <!--<mapper resource="com/zwwhnly/mybatisaction/mapper/SysRolePrivilegeMapper.xml"/>-->
+        <package name="com.zwwhnly.mybatisaction.mapper"/>
     </mappers>
 </configuration>
