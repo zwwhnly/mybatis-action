@@ -24,4 +24,71 @@
                create_time
         FROM sys_user
     </select>
+    <select id="selectRolesByUserId" resultType="com.zwwhnly.mybatisaction.model.SysRoleExtend">
+        SELECT r.id,
+               r.role_name   roleName,
+               r.enabled,
+               r.create_by   createBy,
+               r.create_time createTime,
+               u.user_name   "sysUser.userName",
+               u.user_email   "sysUser.userEmail"
+        FROM sys_user u
+        INNER JOIN sys_user_role ur ON u.id = ur.user_id
+        INNER JOIN sys_role r ON ur.role_id = r.id
+        WHERE u.id = #{userId}
+    </select>
+    <insert id="insert">
+        INSERT INTO sys_user(id, user_name, user_password, user_email, user_info, head_img, create_time)
+        VALUES (#{id},#{userName},#{userPassword},#{userEmail},#{userInfo},#{headImg,jdbcType=BLOB},#{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertUseGeneratedKeys" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user(user_name, user_password, user_email, user_info, head_img, create_time)
+        VALUES (#{userName},#{userPassword},#{userEmail},#{userInfo},#{headImg,jdbcType=BLOB},#{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertUseSelectKey">
+        INSERT INTO sys_user(user_name, user_password, user_email, user_info, head_img, create_time)
+        VALUES
+        (#{userName},#{userPassword},#{userEmail},#{userInfo},#{headImg,jdbcType=BLOB},#{createTime,jdbcType=TIMESTAMP})
+        <selectKey keyColumn="id" resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <update id="updateById">
+        UPDATE sys_user
+        SET user_name = #{userName},
+            user_password = #{userPassword},
+            user_email = #{userEmail},
+            user_info = #{userInfo},
+            head_img = #{headImg,jdbcType=BLOB},
+            create_time = #{createTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById">
+        DELETE FROM sys_user WHERE id = #{id}
+    </delete>
+    <delete id="deleteBySysUser">
+        DELETE FROM sys_user WHERE id = #{id}
+    </delete>
+    <select id="selectRolesByUserIdAndRoleEnabled" resultType="com.zwwhnly.mybatisaction.model.SysRole">
+        SELECT r.id,
+               r.role_name   roleName,
+               r.enabled,
+               r.create_by   createBy,
+               r.create_time createTime
+        FROM sys_user u
+        INNER JOIN sys_user_role ur ON u.id = ur.user_id
+        INNER JOIN sys_role r ON ur.role_id = r.id
+        WHERE u.id = #{userId} AND r.enabled = #{enabled}
+    </select>
+    <select id="selectRolesByUserAndRole" resultType="com.zwwhnly.mybatisaction.model.SysRole">
+        SELECT r.id,
+        r.role_name   roleName,
+        r.enabled,
+        r.create_by   createBy,
+        r.create_time createTime
+        FROM sys_user u
+        INNER JOIN sys_user_role ur ON u.id = ur.user_id
+        INNER JOIN sys_role r ON ur.role_id = r.id
+        WHERE u.id = #{user.id} AND r.enabled = #{role.enabled}
+    </select>
 </mapper>
