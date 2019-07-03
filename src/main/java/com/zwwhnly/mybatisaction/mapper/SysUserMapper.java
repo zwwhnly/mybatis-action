@@ -95,4 +95,30 @@ public interface SysUserMapper {
      * @return
      */
     List<SysRole> selectRolesByUserAndRole(@Param("user") SysUser user, @Param("role") SysRole role);
+
+    /**
+     * 根据动态条件查询用户信息
+     *
+     * @param sysUser
+     * @return
+     */
+    List<SysUser> selectByUser(SysUser sysUser);
+
+    /**
+     * 根据主键选择性更新用户信息
+     *
+     * @param sysUser
+     * @return
+     */
+    int updateByIdSelective(SysUser sysUser);
+
+    int insertSelective(SysUser sysUser);
+
+    /**
+     * 根据用户id或用户名查询
+     *
+     * @param sysUser
+     * @return
+     */
+    SysUser selectByIdOrUserName(SysUser sysUser);
 }

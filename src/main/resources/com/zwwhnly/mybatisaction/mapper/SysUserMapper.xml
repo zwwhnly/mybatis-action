@@ -91,4 +91,108 @@
         INNER JOIN sys_role r ON ur.role_id = r.id
         WHERE u.id = #{user.id} AND r.enabled = #{role.enabled}
     </select>
+    <select id="selectByUser" resultType="com.zwwhnly.mybatisaction.model.SysUser">
+        SELECT  id,
+                user_name,
+                user_password,
+                user_email,
+                user_info,
+                head_img,
+                create_time
+        FROM sys_user
+        <!--WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND user_name LIKE CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userEmail != null and userEmail != ''">
+            AND user_email = #{userEmail}
+        </if>-->
+        <where>
+            <if test="userName != null and userName != ''">
+                AND user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                AND user_email = #{userEmail}
+            </if>
+        </where>
+    </select>
+    <update id="updateByIdSelective">
+        UPDATE sys_user
+        <!--SET
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="userPassword != null and userPassword != ''">
+            user_password = #{userPassword},
+        </if>
+        <if test="userEmail != null and userEmail != ''">
+            user_email = #{userEmail},
+        </if>
+        <if test="userInfo != null and userInfo != ''">
+            user_info = #{userInfo},
+        </if>
+        <if test="headImg != null">
+            head_img = #{headImg,jdbcType=BLOB},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        id = #{id}-->
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userPassword != null and userPassword != ''">
+                user_password = #{userPassword},
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                user_email = #{userEmail},
+            </if>
+            <if test="userInfo != null and userInfo != ''">
+                user_info = #{userInfo},
+            </if>
+            <if test="headImg != null">
+                head_img = #{headImg,jdbcType=BLOB},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            id = #{id},
+        </set>
+        WHERE id = #{id}
+    </update>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user(user_name, user_password,
+        <if test="userEmail != null and userEmail != ''">
+            user_email,
+        </if>
+        user_info, head_img, create_time)
+        VALUES (#{userName},#{userPassword},
+        <if test="userEmail != null and userEmail != ''">
+            #{userEmail},
+        </if>
+        #{userInfo},#{headImg,jdbcType=BLOB},#{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <select id="selectByIdOrUserName" resultType="com.zwwhnly.mybatisaction.model.SysUser">
+        SELECT  id,
+                user_name,
+                user_password,
+                user_email,
+                user_info,
+                head_img,
+                create_time
+        FROM sys_user
+        WHERE 1 = 1
+        <choose>
+            <when test="id != null">
+                AND id = #{id}
+            </when>
+            <when test="userName != null and userName != ''">
+                AND user_name = #{userName}
+            </when>
+            <otherwise>
+                AND 1 = 2
+            </otherwise>
+        </choose>
+    </select>
 </mapper>
