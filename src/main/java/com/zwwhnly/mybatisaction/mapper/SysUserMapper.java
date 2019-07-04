@@ -5,6 +5,7 @@ import com.zwwhnly.mybatisaction.model.SysUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysUserMapper {
     /**
@@ -121,4 +122,28 @@ public interface SysUserMapper {
      * @return
      */
     SysUser selectByIdOrUserName(SysUser sysUser);
+
+    /**
+     * 根据用户id集合查询
+     *
+     * @param idArray
+     * @return
+     */
+    List<SysUser> selectByIdList(Long[] idArray);
+
+    /**
+     * 批量插入用户信息
+     *
+     * @param userList
+     * @return
+     */
+    int insertList(List<SysUser> userList);
+
+    /**
+     * 通过Map更新列
+     *
+     * @param map
+     * @return
+     */
+    int updateByMap(Map<String, Object> map);
 }

@@ -92,13 +92,13 @@
         WHERE u.id = #{user.id} AND r.enabled = #{role.enabled}
     </select>
     <select id="selectByUser" resultType="com.zwwhnly.mybatisaction.model.SysUser">
-        SELECT  id,
-                user_name,
-                user_password,
-                user_email,
-                user_info,
-                head_img,
-                create_time
+        SELECT id,
+        user_name,
+        user_password,
+        user_email,
+        user_info,
+        head_img,
+        create_time
         FROM sys_user
         <!--WHERE 1 = 1
         <if test="userName != null and userName != ''">
@@ -109,7 +109,8 @@
         </if>-->
         <where>
             <if test="userName != null and userName != ''">
-                AND user_name LIKE CONCAT('%',#{userName},'%')
+                <bind name="userNameLike" value="'%' +userName+'%'"/>
+                AND user_name LIKE #{userNameLike}
             </if>
             <if test="userEmail != null and userEmail != ''">
                 AND user_email = #{userEmail}
@@ -174,13 +175,13 @@
         #{userInfo},#{headImg,jdbcType=BLOB},#{createTime,jdbcType=TIMESTAMP})
     </insert>
     <select id="selectByIdOrUserName" resultType="com.zwwhnly.mybatisaction.model.SysUser">
-        SELECT  id,
-                user_name,
-                user_password,
-                user_email,
-                user_info,
-                head_img,
-                create_time
+        SELECT id,
+        user_name,
+        user_password,
+        user_email,
+        user_info,
+        head_img,
+        create_time
         FROM sys_user
         WHERE 1 = 1
         <choose>
@@ -195,4 +196,34 @@
             </otherwise>
         </choose>
     </select>
+    <select id="selectByIdList" resultType="com.zwwhnly.mybatisaction.model.SysUser">
+        SELECT id,
+        user_name,
+        user_password,
+        user_email,
+        user_info,
+        head_img,
+        create_time
+        FROM sys_user
+        WHERE id IN
+        <foreach collection="array" open="(" close=")" separator=","
+                 item="id" index="i">
+            #{id}
+        </foreach>
+    </select>
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user(user_name, user_password, user_email, user_info, head_img, create_time)
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.userName},#{user.userPassword},#{user.userEmail},#{user.userInfo},#{user.headImg,jdbcType=BLOB},#{user.createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+    <update id="updateByMap">
+        UPDATE sys_user
+        SET
+        <foreach collection="_parameter" item="val" index="key" separator=",">
+            ${key} = #{val}
+        </foreach>
+        WHERE id = #{id}
+    </update>
 </mapper>
