@@ -2,6 +2,7 @@ package com.zwwhnly.mybatisaction.mapper;
 
 import com.zwwhnly.mybatisaction.model.SysPrivilege;
 import com.zwwhnly.mybatisaction.model.SysRole;
+import com.zwwhnly.mybatisaction.type.Enabled;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
@@ -101,7 +102,7 @@ public class SysRoleMapperTest extends BaseMapperTest {
 
             // 将id=2的角色的enabled赋值为0
             SysRole sysRole = sysRoleMapper.selectById(2L);
-            sysRole.setEnabled(0);
+            sysRole.setEnabled(Enabled.disabled);
             sysRoleMapper.updateById(sysRole);
 
             List<SysRole> sysRoleList = sysRoleMapper.selectRoleByUserIdChoose(1L);
@@ -117,6 +118,27 @@ public class SysRoleMapperTest extends BaseMapperTest {
                     System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
                 }
             }
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testUpdateById() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysRoleMapper sysRoleMapper = sqlSession.getMapper(SysRoleMapper.class);
+
+            SysRole sysRole = sysRoleMapper.selectById(2L);
+            Assert.assertEquals(Enabled.enabled, sysRole.getEnabled());
+
+            // 修改角色的enabled为disabled
+            sysRole.setEnabled(Enabled.disabled);
+            sysRoleMapper.updateById(sysRole);
+
+            sysRole = sysRoleMapper.selectById(2L);
+            Assert.assertEquals(Enabled.disabled, sysRole.getEnabled());
         } finally {
             sqlSession.close();
         }

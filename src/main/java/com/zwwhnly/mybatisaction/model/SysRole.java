@@ -1,5 +1,7 @@
 package com.zwwhnly.mybatisaction.model;
 
+import com.zwwhnly.mybatisaction.type.Enabled;
+
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,12 @@ public class SysRole {
     /**
      * 有效标志
      */
-    private Integer enabled;
+    //private Integer enabled;
+
+    /**
+     * 有效标志
+     */
+    private Enabled enabled;
 
     /**
      * 创建人
@@ -55,11 +62,19 @@ public class SysRole {
         this.roleName = roleName;
     }
 
-    public Integer getEnabled() {
+    /*public Integer getEnabled() {
         return enabled;
     }
 
     public void setEnabled(Integer enabled) {
+        this.enabled = enabled;
+    }*/
+
+    public Enabled getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Enabled enabled) {
         this.enabled = enabled;
     }
 

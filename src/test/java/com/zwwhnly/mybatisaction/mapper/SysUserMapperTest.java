@@ -1,6 +1,7 @@
 package com.zwwhnly.mybatisaction.mapper;
 
 import com.zwwhnly.mybatisaction.model.*;
+import com.zwwhnly.mybatisaction.type.Enabled;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
@@ -230,7 +231,7 @@ public class SysUserMapperTest extends BaseMapperTest {
             SysUser sysUser = new SysUser();
             sysUser.setId(1L);
             SysRole sysRole = new SysRole();
-            sysRole.setEnabled(1);
+            sysRole.setEnabled(Enabled.enabled);
 
             List<SysRole> sysRoleList = sysUserMapper.selectRolesByUserAndRole(sysUser, sysRole);
 
@@ -513,6 +514,72 @@ public class SysUserMapperTest extends BaseMapperTest {
                     System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
                 }
             }
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectUserById() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            SysUser sysUser = new SysUser();
+            sysUser.setId(1L);
+            sysUserMapper.selectUserById(sysUser);
+
+            Assert.assertNotNull(sysUser.getUserName());
+            System.out.println("用户名：" + sysUser.getUserName());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectUserPage() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("userName", "ad");
+            params.put("offset", 0);
+            params.put("limit", 10);
+
+            List<SysUser> sysUserList = sysUserMapper.selectUserPage(params);
+            Long total = (Long) params.get("total");
+            System.out.println("总数：" + total);
+            for (SysUser sysUser : sysUserList) {
+                System.out.println("用户名：" + sysUser.getUserName());
+            }
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testInsertAndDelete() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            SysUser sysUser = new SysUser();
+            sysUser.setUserName("test1");
+            sysUser.setUserPassword("123456");
+            sysUser.setUserEmail("test@mybatis.tk");
+            sysUser.setUserInfo("test info");
+            sysUser.setHeadImg(new byte[]{1, 2, 3});
+            sysUserMapper.insertUserAndRoles(sysUser, "1,2");
+
+            Assert.assertNotNull(sysUser.getId());
+            Assert.assertNotNull(sysUser.getCreateTime());
+
+            // 删除刚刚新增的数据
+            sysUserMapper.deleteUserById(sysUser.getId());
         } finally {
             sqlSession.close();
         }

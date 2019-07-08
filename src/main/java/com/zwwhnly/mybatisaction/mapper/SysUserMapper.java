@@ -192,4 +192,36 @@ public interface SysUserMapper {
      * @return
      */
     SysUserExtend selectAllUserAndRolesSelect(Long id);
+
+    /**
+     * 使用存储过程查询用户信息
+     *
+     * @param sysUser
+     */
+    void selectUserById(SysUser sysUser);
+
+    /**
+     * 使用存储过程分页查询
+     *
+     * @param params
+     * @return
+     */
+    List<SysUser> selectUserPage(Map<String, Object> params);
+
+    /**
+     * 保存用户信息和角色关联信息
+     *
+     * @param sysUser
+     * @param roleIds
+     * @return
+     */
+    int insertUserAndRoles(@Param("sysUser") SysUser sysUser, @Param("roleIds") String roleIds);
+
+    /**
+     * 根据用户id删除用户和用户的角色信息
+     *
+     * @param id
+     * @return
+     */
+    int deleteUserById(Long id);
 }

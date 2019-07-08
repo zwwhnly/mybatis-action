@@ -12,6 +12,12 @@
     <typeAliases>
         <package name="com.zwwhnly.mybatisaction.model"/>
     </typeAliases>
+    <typeHandlers>
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+                     javaType="com.zwwhnly.mybatisaction.type.Enabled"/>-->
+        <typeHandler handler="com.zwwhnly.mybatisaction.type.EnabledTypeHandler"
+                     javaType="com.zwwhnly.mybatisaction.type.Enabled"/>
+    </typeHandlers>
 
     <environments default="development">
         <environment id="development">
