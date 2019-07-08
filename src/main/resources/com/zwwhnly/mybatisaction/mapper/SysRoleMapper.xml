@@ -21,6 +21,19 @@
         <collection property="sysPrivilegeList" columnPrefix="privilege_"
                     resultMap="com.zwwhnly.mybatisaction.mapper.SysPrivilegeMapper.sysPrivilegeMap"/>
     </resultMap>
+    <resultMap id="rolePrivilegeListMapSelect" extends="roleMap"
+               type="com.zwwhnly.mybatisaction.model.SysRole">
+        <collection property="sysPrivilegeList" fetchType="lazy"
+                    column="{roleId=id}"
+                    select="com.zwwhnly.mybatisaction.mapper.SysPrivilegeMapper.selectPrivilegeByRoleId"/>
+    </resultMap>
+    <resultMap id="rolePrivilegeListMapChoose"
+               type="com.zwwhnly.mybatisaction.model.SysRole">
+        <discriminator column="enabled" javaType="int">
+            <case value="1" resultMap="rolePrivilegeListMapSelect"/>
+            <case value="0" resultMap="roleMap"/>
+        </discriminator>
+    </resultMap>
     <select id="selectRoleById" resultMap="roleMap">
         SELECT * FROM sys_role WHERE id = #{id}
     </select>
@@ -37,5 +50,27 @@
         FROM sys_role r
         INNER JOIN sys_role_privilege rp ON rp.role_id = r.id
         INNER JOIN sys_privilege p ON p.id = rp.privilege_id
+    </select>
+    <select id="selectRoleByUserId" resultMap="rolePrivilegeListMapSelect">
+        SELECT
+              r.id,
+              r.role_name,
+              r.enabled,
+              r.create_by,
+              r.create_time
+        FROM sys_role r
+        INNER JOIN sys_user_role ur ON ur.role_id = r.id
+        WHERE ur.user_id = #{userId}
+    </select>
+    <select id="selectRoleByUserIdChoose" resultMap="rolePrivilegeListMapChoose">
+        SELECT
+              r.id,
+              r.role_name,
+              r.enabled,
+              r.create_by,
+              r.create_time
+        FROM sys_role r
+        INNER JOIN sys_user_role ur ON ur.role_id = r.id
+        WHERE ur.user_id = #{userId}
     </select>
 </mapper>

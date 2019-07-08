@@ -45,4 +45,14 @@ public interface SysRoleMapper {
     int deleteById(Long id);
 
     List<SysRole> selectAllRoleAndPrivileges();
+
+    List<SysRole> selectRoleByUserId(Long userId);
+
+    /**
+     * 根据用户id获取用户的角色信息
+     *
+     * @param userId
+     * @return
+     */
+    List<SysRole> selectRoleByUserIdChoose(Long userId);
 }

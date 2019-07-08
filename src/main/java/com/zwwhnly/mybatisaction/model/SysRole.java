@@ -34,6 +34,9 @@ public class SysRole {
 
     private List<SysPrivilege> sysPrivilegeList;
 
+    /**
+     * 创建信息
+     */
     private CreateInfo createInfo;
 
     public Long getId() {

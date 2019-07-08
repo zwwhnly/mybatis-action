@@ -49,6 +49,12 @@
                     resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.rolePrivilegeListMap">
         </collection>
     </resultMap>
+    <resultMap id="userRoleListMapSelect" extends="sysUserMap"
+               type="com.zwwhnly.mybatisaction.model.SysUserExtend">
+        <collection property="sysRoleList" fetchType="lazy"
+                    select="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.selectRoleByUserId"
+                    column="{userId=id}"/>
+    </resultMap>
 
     <select id="selectById" resultMap="sysUserMap">
         SELECT id, user_name, user_password, user_email, create_time FROM sys_user WHERE id = #{id}
@@ -352,5 +358,15 @@
         INNER JOIN sys_role r ON ur.role_id = r.id
         INNER JOIN sys_role_privilege rp ON rp.role_id = r.id
         INNER JOIN sys_privilege p ON p.id = rp.privilege_id
+    </select>
+    <select id="selectAllUserAndRolesSelect" resultMap="userRoleListMapSelect">
+        SELECT
+              u.id,
+              u.user_name,
+              u.user_password,
+              u.user_email,
+              u.create_time
+        FROM sys_user u
+        WHERE u.id = #{id}
     </select>
 </mapper>
