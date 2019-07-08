@@ -51,7 +51,7 @@
     </resultMap>
 
     <select id="selectById" resultMap="sysUserMap">
-        SELECT * FROM sys_user WHERE id = #{id}
+        SELECT id, user_name, user_password, user_email, create_time FROM sys_user WHERE id = #{id}
     </select>
     <select id="selectAll" resultType="com.zwwhnly.mybatisaction.model.SysUser">
         SELECT id,
@@ -135,18 +135,16 @@
         user_name,
         user_password,
         user_email,
-        user_info,
-        head_img,
         create_time
         FROM sys_user
-        <!--WHERE 1 = 1
+        WHERE 1 = 1
         <if test="userName != null and userName != ''">
             AND user_name LIKE CONCAT('%',#{userName},'%')
         </if>
         <if test="userEmail != null and userEmail != ''">
             AND user_email = #{userEmail}
-        </if>-->
-        <where>
+        </if>
+        <!--<where>
             <if test="userName != null and userName != ''">
                 <bind name="userNameLike" value="'%' +userName+'%'"/>
                 AND user_name LIKE #{userNameLike}
@@ -154,11 +152,11 @@
             <if test="userEmail != null and userEmail != ''">
                 AND user_email = #{userEmail}
             </if>
-        </where>
+        </where>-->
     </select>
     <update id="updateByIdSelective">
         UPDATE sys_user
-        <!--SET
+        SET
         <if test="userName != null and userName != ''">
             user_name = #{userName},
         </if>
@@ -177,8 +175,8 @@
         <if test="createTime != null">
             create_time = #{createTime,jdbcType=TIMESTAMP},
         </if>
-        id = #{id}-->
-        <set>
+        id = #{id}
+        <!--<set>
             <if test="userName != null and userName != ''">
                 user_name = #{userName},
             </if>
@@ -198,7 +196,7 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             id = #{id},
-        </set>
+        </set>-->
         WHERE id = #{id}
     </update>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">

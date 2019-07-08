@@ -249,20 +249,24 @@ public class SysUserMapperTest extends BaseMapperTest {
         try {
             SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
+            // 只按用户名查询
             SysUser query = new SysUser();
             query.setUserName("ad");
             List<SysUser> sysUserList = sysUserMapper.selectByUser(query);
             Assert.assertTrue(sysUserList.size() > 0);
 
+            // 只按邮箱查询
             query = new SysUser();
             query.setUserEmail("test@mybatis.tk");
             sysUserList = sysUserMapper.selectByUser(query);
             Assert.assertTrue(sysUserList.size() > 0);
 
+            // 同时按用户民和邮箱查询
             query = new SysUser();
             query.setUserName("ad");
             query.setUserEmail("test@mybatis.tk");
             sysUserList = sysUserMapper.selectByUser(query);
+            // 由于没有同时符合这两个条件的用户，因此查询结果数为0
             Assert.assertTrue(sysUserList.size() == 0);
         } finally {
             sqlSession.close();
@@ -277,13 +281,17 @@ public class SysUserMapperTest extends BaseMapperTest {
             SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
             SysUser sysUser = new SysUser();
+            // 更新id=1的用户
             sysUser.setId(1L);
+            // 修改邮箱
             sysUser.setUserEmail("test@mybatis.tk");
 
             int result = sysUserMapper.updateByIdSelective(sysUser);
             Assert.assertEquals(1, result);
 
+            // 查询id=1的用户
             sysUser = sysUserMapper.selectById(1L);
+            // 修改后的名字保持不变，但是邮箱变成了新的
             Assert.assertEquals("admin", sysUser.getUserName());
             Assert.assertEquals("test@mybatis.tk", sysUser.getUserEmail());
         } finally {
@@ -306,7 +314,9 @@ public class SysUserMapperTest extends BaseMapperTest {
 
             sysUserMapper.insertSelective(sysUser);
 
+            // 获取刚刚插入的数据
             sysUser = sysUserMapper.selectById(sysUser.getId());
+            // 因为没有指定userEmail,所以用的是数据库的默认值
             Assert.assertEquals("test@mybatis.tk", sysUser.getUserEmail());
         } finally {
             sqlSession.close();

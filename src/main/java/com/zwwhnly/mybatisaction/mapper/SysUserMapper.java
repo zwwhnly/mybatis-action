@@ -114,6 +114,12 @@ public interface SysUserMapper {
      */
     int updateByIdSelective(SysUser sysUser);
 
+    /**
+     * 根据传入的参数值动态插入列
+     *
+     * @param sysUser
+     * @return
+     */
     int insertSelective(SysUser sysUser);
 
     /**
