@@ -1,5 +1,7 @@
 package com.zwwhnly.mybatisaction.model;
 
+import java.util.List;
+
 public class SysRoleExtend extends SysRole {
     private SysUser sysUser;
 

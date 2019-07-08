@@ -43,4 +43,6 @@ public interface SysRoleMapper {
 
     @Delete("DELETE FROM sys_role WHERE id = #{id}")
     int deleteById(Long id);
+
+    List<SysRole> selectAllRoleAndPrivileges();
 }

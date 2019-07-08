@@ -1,10 +1,10 @@
 package com.zwwhnly.mybatisaction.mapper;
 
-import com.zwwhnly.mybatisaction.model.SysRole;
-import com.zwwhnly.mybatisaction.model.SysUser;
+import com.zwwhnly.mybatisaction.model.*;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.*;
 
@@ -409,6 +409,80 @@ public class SysUserMapperTest extends BaseMapperTest {
             SysUser sysUser = sysUserMapper.selectById(1L);
             Assert.assertEquals("test@mybatis.tk", sysUser.getUserEmail());
             Assert.assertEquals("12345678", sysUser.getUserPassword());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectUserAndRoleById() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            SysUser sysUser = sysUserMapper.selectUserAndRoleById(1001L);
+            Assert.assertNotNull(sysUser);
+            Assert.assertNotNull(sysUser.getSysRole());
+
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectUserAndRoleById2() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            SysUser sysUser = sysUserMapper.selectUserAndRoleById2(1001L);
+            Assert.assertNotNull(sysUser);
+            Assert.assertNotNull(sysUser.getSysRole());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectUserAndRoleByIdSelect() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            SysUser sysUser = sysUserMapper.selectUserAndRoleByIdSelect(1001L);
+            Assert.assertNotNull(sysUser);
+
+            System.out.println("调用sysUser.equals(null)");
+            sysUser.equals(null);
+
+            System.out.println("调用sysUser.getSysRole()");
+            Assert.assertNotNull(sysUser.getSysRole());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectAllUserAndRoles() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            List<SysUserExtend> sysUserList = sysUserMapper.selectAllUserAndRoles();
+            System.out.println("用户数：" + sysUserList.size());
+            for (SysUserExtend sysUser : sysUserList) {
+                System.out.println("用户名：" + sysUser.getUserName());
+                for (SysRole sysRole : sysUser.getSysRoleList()) {
+                    System.out.println("角色名：" + sysRole.getRoleName());
+                    for (SysPrivilege sysPrivilege : sysRole.getSysPrivilegeList()) {
+                        System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
+                    }
+                }
+            }
         } finally {
             sqlSession.close();
         }

@@ -1,6 +1,7 @@
 package com.zwwhnly.mybatisaction.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 角色表
@@ -30,6 +31,10 @@ public class SysRole {
      * 创建时间
      */
     private Date createTime;
+
+    private List<SysPrivilege> sysPrivilegeList;
+
+    private CreateInfo createInfo;
 
     public Long getId() {
         return id;
@@ -69,5 +74,21 @@ public class SysRole {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public List<SysPrivilege> getSysPrivilegeList() {
+        return sysPrivilegeList;
+    }
+
+    public void setSysPrivilegeList(List<SysPrivilege> sysPrivilegeList) {
+        this.sysPrivilegeList = sysPrivilegeList;
+    }
+
+    public CreateInfo getCreateInfo() {
+        return createInfo;
+    }
+
+    public void setCreateInfo(CreateInfo createInfo) {
+        this.createInfo = createInfo;
     }
 }

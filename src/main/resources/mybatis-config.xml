@@ -6,6 +6,7 @@
     <settings>
         <setting name="logImpl" value="LOG4J"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
 
     <typeAliases>

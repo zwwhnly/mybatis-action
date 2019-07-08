@@ -56,4 +56,21 @@ public class SysRoleMapperTest extends BaseMapperTest {
             sqlSession.close();
         }
     }
+
+    @Test
+    public void testSelectAllRoleAndPrivileges() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysRoleMapper sysRoleMapper = sqlSession.getMapper(SysRoleMapper.class);
+
+            List<SysRole> sysRoleList = sysRoleMapper.selectAllRoleAndPrivileges();
+
+            Assert.assertNotNull(sysRoleList);
+            Assert.assertTrue(sysRoleList.size() > 0);
+            Assert.assertNotNull(sysRoleList.get(0).getRoleName());
+        } finally {
+            sqlSession.close();
+        }
+    }
 }

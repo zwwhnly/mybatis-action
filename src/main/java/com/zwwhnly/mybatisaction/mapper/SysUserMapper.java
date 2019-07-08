@@ -2,6 +2,7 @@ package com.zwwhnly.mybatisaction.mapper;
 
 import com.zwwhnly.mybatisaction.model.SysRole;
 import com.zwwhnly.mybatisaction.model.SysUser;
+import com.zwwhnly.mybatisaction.model.SysUserExtend;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -146,4 +147,35 @@ public interface SysUserMapper {
      * @return
      */
     int updateByMap(Map<String, Object> map);
+
+    /**
+     * 根据用户id获取用户信息和用户的角色信息
+     *
+     * @param id
+     * @return
+     */
+    SysUser selectUserAndRoleById(Long id);
+
+    /**
+     * 根据用户id获取用户信息和用户的角色信息
+     *
+     * @param id
+     * @return
+     */
+    SysUser selectUserAndRoleById2(Long id);
+
+    /**
+     * 根据用户id获取用户信息和用户的角色信息，嵌套查询方式
+     *
+     * @param id
+     * @return
+     */
+    SysUser selectUserAndRoleByIdSelect(Long id);
+
+    /**
+     * 获取所有的用户以及对应的所有角色
+     *
+     * @return
+     */
+    List<SysUserExtend> selectAllUserAndRoles();
 }
