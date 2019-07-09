@@ -2,13 +2,16 @@ package com.zwwhnly.mybatisaction.model;
 
 import com.zwwhnly.mybatisaction.type.Enabled;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * 角色表
  */
-public class SysRole {
+public class SysRole implements Serializable {
+    private static final long serialVersionUID = 6320941908222932112L;
+
     /**
      * 角色ID
      */
