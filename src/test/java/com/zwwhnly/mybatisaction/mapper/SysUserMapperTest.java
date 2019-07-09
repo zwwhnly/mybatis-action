@@ -275,6 +275,37 @@ public class SysUserMapperTest extends BaseMapperTest {
     }
 
     @Test
+    public void testSelectByUserWhere() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            // 只按用户名查询
+            SysUser query = new SysUser();
+            query.setUserName("ad");
+            List<SysUser> sysUserList = sysUserMapper.selectByUserWhere(query);
+            Assert.assertTrue(sysUserList.size() > 0);
+
+            // 只按邮箱查询
+            query = new SysUser();
+            query.setUserEmail("test@mybatis.tk");
+            sysUserList = sysUserMapper.selectByUserWhere(query);
+            Assert.assertTrue(sysUserList.size() > 0);
+
+            // 同时按用户民和邮箱查询
+            query = new SysUser();
+            query.setUserName("ad");
+            query.setUserEmail("test@mybatis.tk");
+            sysUserList = sysUserMapper.selectByUserWhere(query);
+            // 由于没有同时符合这两个条件的用户，因此查询结果数为0
+            Assert.assertTrue(sysUserList.size() == 0);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
     public void testUpdateByIdSelective() {
         SqlSession sqlSession = getSqlSession();
 
@@ -288,6 +319,32 @@ public class SysUserMapperTest extends BaseMapperTest {
             sysUser.setUserEmail("test@mybatis.tk");
 
             int result = sysUserMapper.updateByIdSelective(sysUser);
+            Assert.assertEquals(1, result);
+
+            // 查询id=1的用户
+            sysUser = sysUserMapper.selectById(1L);
+            // 修改后的名字保持不变，但是邮箱变成了新的
+            Assert.assertEquals("admin", sysUser.getUserName());
+            Assert.assertEquals("test@mybatis.tk", sysUser.getUserEmail());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testUpdateByIdSelectiveSet() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+
+            SysUser sysUser = new SysUser();
+            // 更新id=1的用户
+            sysUser.setId(1L);
+            // 修改邮箱
+            sysUser.setUserEmail("test@mybatis.tk");
+
+            int result = sysUserMapper.updateByIdSelectiveSet(sysUser);
             Assert.assertEquals(1, result);
 
             // 查询id=1的用户

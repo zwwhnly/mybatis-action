@@ -107,12 +107,28 @@ public interface SysUserMapper {
     List<SysUser> selectByUser(SysUser sysUser);
 
     /**
+     * 根据动态条件查询用户信息(使用Where标签)
+     *
+     * @param sysUser
+     * @return
+     */
+    List<SysUser> selectByUserWhere(SysUser sysUser);
+
+    /**
      * 根据主键选择性更新用户信息
      *
      * @param sysUser
      * @return
      */
     int updateByIdSelective(SysUser sysUser);
+
+    /**
+     * 根据主键选择性更新用户信息(使用Set标签)
+     *
+     * @param sysUser
+     * @return
+     */
+    int updateByIdSelectiveSet(SysUser sysUser);
 
     /**
      * 根据传入的参数值动态插入列

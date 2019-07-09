@@ -150,15 +150,22 @@
         <if test="userEmail != null and userEmail != ''">
             AND user_email = #{userEmail}
         </if>
-        <!--<where>
+    </select>
+    <select id="selectByUserWhere" resultType="com.zwwhnly.mybatisaction.model.SysUser">
+        SELECT id,
+        user_name,
+        user_password,
+        user_email,
+        create_time
+        FROM sys_user
+        <where>
             <if test="userName != null and userName != ''">
-                <bind name="userNameLike" value="'%' +userName+'%'"/>
-                AND user_name LIKE #{userNameLike}
+                AND user_name LIKE CONCAT('%',#{userName},'%')
             </if>
             <if test="userEmail != null and userEmail != ''">
                 AND user_email = #{userEmail}
             </if>
-        </where>-->
+        </where>
     </select>
     <update id="updateByIdSelective">
         UPDATE sys_user
@@ -182,7 +189,11 @@
             create_time = #{createTime,jdbcType=TIMESTAMP},
         </if>
         id = #{id}
-        <!--<set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateByIdSelectiveSet">
+        UPDATE sys_user
+        <set>
             <if test="userName != null and userName != ''">
                 user_name = #{userName},
             </if>
@@ -202,7 +213,7 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             id = #{id},
-        </set>-->
+        </set>
         WHERE id = #{id}
     </update>
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
@@ -222,8 +233,6 @@
         user_name,
         user_password,
         user_email,
-        user_info,
-        head_img,
         create_time
         FROM sys_user
         WHERE 1 = 1
