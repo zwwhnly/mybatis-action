@@ -253,12 +253,23 @@
         user_name,
         user_password,
         user_email,
-        user_info,
-        head_img,
         create_time
         FROM sys_user
         WHERE id IN
-        <foreach collection="array" open="(" close=")" separator=","
+        <foreach collection="idList" open="(" close=")" separator=","
+                 item="id" index="i">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectByIdArray" resultType="com.zwwhnly.mybatisaction.model.SysUser">
+        SELECT id,
+        user_name,
+        user_password,
+        user_email,
+        create_time
+        FROM sys_user
+        WHERE id IN
+        <foreach collection="idArray" open="(" close=")" separator=","
                  item="id" index="i">
             #{id}
         </foreach>
@@ -273,10 +284,10 @@
     <update id="updateByMap">
         UPDATE sys_user
         SET
-        <foreach collection="_parameter" item="val" index="key" separator=",">
+        <foreach collection="userMap" item="val" index="key" separator=",">
             ${key} = #{val}
         </foreach>
-        WHERE id = #{id}
+        WHERE id = #{userMap.id}
     </update>
     <select id="selectUserAndRoleById" resultType="com.zwwhnly.mybatisaction.model.SysUser">
         SELECT u.id,

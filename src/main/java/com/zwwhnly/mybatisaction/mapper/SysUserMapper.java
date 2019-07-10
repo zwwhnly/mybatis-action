@@ -147,12 +147,20 @@ public interface SysUserMapper {
     SysUser selectByIdOrUserName(SysUser sysUser);
 
     /**
-     * 根据用户id集合查询
+     * 根据用户id集合查询用户
+     *
+     * @param idList
+     * @return
+     */
+    List<SysUser> selectByIdList(@Param("idList") List<Long> idList);
+
+    /**
+     * 根据用户id数组查询用户
      *
      * @param idArray
      * @return
      */
-    List<SysUser> selectByIdList(Long[] idArray);
+    List<SysUser> selectByIdArray(@Param("idArray") Long[] idArray);
 
     /**
      * 批量插入用户信息
@@ -168,7 +176,7 @@ public interface SysUserMapper {
      * @param map
      * @return
      */
-    int updateByMap(Map<String, Object> map);
+    int updateByMap(@Param("userMap") Map<String, Object> map);
 
     /**
      * 根据用户id获取用户信息和用户的角色信息

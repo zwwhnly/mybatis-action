@@ -416,15 +416,29 @@ public class SysUserMapperTest extends BaseMapperTest {
         try {
             SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
-            /*List<Long> idList = new ArrayList<Long>();
+            List<Long> idList = new ArrayList<Long>();
             idList.add(1L);
-            idList.add(1001L);*/
+            idList.add(1001L);
+
+            List<SysUser> userList = sysUserMapper.selectByIdList(idList);
+            Assert.assertEquals(2, userList.size());
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectByIdArray() {
+        SqlSession sqlSession = getSqlSession();
+
+        try {
+            SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
             Long[] longArray = new Long[2];
             longArray[0] = 1L;
             longArray[1] = 1001L;
 
-            List<SysUser> userList = sysUserMapper.selectByIdList(longArray);
+            List<SysUser> userList = sysUserMapper.selectByIdArray(longArray);
             Assert.assertEquals(2, userList.size());
         } finally {
             sqlSession.close();
