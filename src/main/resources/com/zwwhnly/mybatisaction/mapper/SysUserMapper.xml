@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zwwhnly.mybatisaction.mapper.SysUserMapper">
     <resultMap id="sysUserMap" type="com.zwwhnly.mybatisaction.model.SysUser">
-        <!--<id property="id" column="id"/>-->
-        <result property="id" column="id"/>
+        <id property="id" column="id"/>
+        <!--<result property="id" column="id"/>-->
         <result property="userName" column="user_name"/>
         <result property="userPassword" column="user_password"/>
         <result property="userEmail" column="user_email"/>
@@ -11,7 +11,7 @@
         <result property="headImg" column="head_img" jdbcType="BLOB"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <resultMap id="userRoleMap" type="com.zwwhnly.mybatisaction.model.SysUser" extends="sysUserMap">
+    <resultMap id="userRoleMap" type="com.zwwhnly.mybatisaction.model.SysUserExtend" extends="sysUserMap">
         <!--<id property="id" column="id"/>
         <result property="userName" column="user_name"/>
         <result property="userPassword" column="user_password"/>
@@ -19,20 +19,21 @@
         <result property="userInfo" column="user_info"/>
         <result property="headImg" column="head_img" jdbcType="BLOB"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>-->
-
+        <!--role相关属性-->
         <!--<result property="sysRole.id" column="role_id"/>
-        <result property="sysRole.roleName" column="role_name"/>
-        <result property="sysRole.enabled" column="enabled"/>
-        <result property="sysRole.createBy" column="create_by"/>
+        <result property="sysRole.roleName" column="role_role_name"/>
+        <result property="sysRole.enabled" column="role_enabled"/>
+        <result property="sysRole.createBy" column="role_create_by"/>
         <result property="sysRole.createTime" column="role_create_time" jdbcType="TIMESTAMP"/>-->
-        <association property="sysRole" columnPrefix="role_" javaType="com.zwwhnly.mybatisaction.model.SysRole"
-                     resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.roleMap">
-            <!--<result property="id" column="id"/>
+        <association property="sysRole" columnPrefix="role_"
+                     resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.roleMap"/>
+        <!--<association property="sysRole" columnPrefix="role_" javaType="com.zwwhnly.mybatisaction.model.SysRole">
+            <result property="id" column="id"/>
             <result property="roleName" column="role_name"/>
             <result property="enabled" column="enabled"/>
             <result property="createBy" column="create_by"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>-->
-        </association>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        </association>-->
     </resultMap>
     <resultMap id="userRoleMapSelect" type="com.zwwhnly.mybatisaction.model.SysUser" extends="sysUserMap">
         <association property="sysRole" column="{id=role_id}"
@@ -289,13 +290,11 @@
         </foreach>
         WHERE id = #{userMap.id}
     </update>
-    <select id="selectUserAndRoleById" resultType="com.zwwhnly.mybatisaction.model.SysUser">
+    <select id="selectUserAndRoleById" resultType="com.zwwhnly.mybatisaction.model.SysUserExtend">
         SELECT u.id,
                u.user_name userName,
                u.user_password userPassword,
                u.user_email userEmail,
-               u.user_info userInfo,
-               u.head_img headImg,
                u.create_time createTime,
                r.id "sysRole.id",
                r.role_name   "sysRole.roleName",
@@ -307,19 +306,17 @@
         INNER JOIN sys_role r ON ur.role_id = r.id
         WHERE u.id = #{id}
     </select>
-    <select id="selectUserAndRoleById2" resultMap="userRoleMap">
-        SELECT u.id,
-        u.user_name,
-        u.user_password,
-        u.user_email,
-        u.user_info,
-        u.head_img,
-        u.create_time,
-        r.id role_id,
-        r.role_name role_role_name,
-        r.enabled role_enabled,
-        r.create_by role_create_by,
-        r.create_time role_create_time
+    <select id="selectUserAndRoleByIdResultMap" resultMap="userRoleMap">
+        SELECT  u.id,
+                u.user_name,
+                u.user_password,
+                u.user_email,
+                u.create_time,
+                r.id role_id,
+                r.role_name role_role_name,
+                r.enabled role_enabled,
+                r.create_by role_create_by,
+                r.create_time role_create_time
         FROM sys_user u
         INNER JOIN sys_user_role ur ON u.id = ur.user_id
         INNER JOIN sys_role r ON ur.role_id = r.id

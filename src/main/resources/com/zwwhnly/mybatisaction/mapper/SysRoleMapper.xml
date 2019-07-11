@@ -4,7 +4,7 @@
     <!--<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="false"/>-->
     <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
     <resultMap id="roleMap" type="com.zwwhnly.mybatisaction.model.SysRole">
-        <!--<result property="id" column="id"/>
+        <!--<id property="id" column="id"/>
         <result property="roleName" column="role_name"/>
         <result property="enabled" column="enabled"/>
         <result property="createBy" column="create_by"/>

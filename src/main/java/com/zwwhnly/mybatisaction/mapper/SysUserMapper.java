@@ -184,7 +184,7 @@ public interface SysUserMapper {
      * @param id
      * @return
      */
-    SysUser selectUserAndRoleById(Long id);
+    SysUserExtend selectUserAndRoleById(Long id);
 
     /**
      * 根据用户id获取用户信息和用户的角色信息
@@ -192,7 +192,7 @@ public interface SysUserMapper {
      * @param id
      * @return
      */
-    SysUser selectUserAndRoleById2(Long id);
+    SysUserExtend selectUserAndRoleByIdResultMap(Long id);
 
     /**
      * 根据用户id获取用户信息和用户的角色信息，嵌套查询方式

@@ -503,25 +503,26 @@ public class SysUserMapperTest extends BaseMapperTest {
         try {
             SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
-            SysUser sysUser = sysUserMapper.selectUserAndRoleById(1001L);
-            Assert.assertNotNull(sysUser);
-            Assert.assertNotNull(sysUser.getSysRole());
+            // 注意这里使用1001这个用户，因为这个用户只有1个角色
+            SysUserExtend sysUserExtend = sysUserMapper.selectUserAndRoleById(1001L);
 
+            Assert.assertNotNull(sysUserExtend);
+            Assert.assertNotNull(sysUserExtend.getSysRole());
         } finally {
             sqlSession.close();
         }
     }
 
     @Test
-    public void testSelectUserAndRoleById2() {
+    public void testSelectUserAndRoleByIdResultMap() {
         SqlSession sqlSession = getSqlSession();
 
         try {
             SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
-            SysUser sysUser = sysUserMapper.selectUserAndRoleById2(1001L);
-            Assert.assertNotNull(sysUser);
-            Assert.assertNotNull(sysUser.getSysRole());
+            SysUserExtend sysUserExtend = sysUserMapper.selectUserAndRoleByIdResultMap(1001L);
+            Assert.assertNotNull(sysUserExtend);
+            Assert.assertNotNull(sysUserExtend.getSysRole());
         } finally {
             sqlSession.close();
         }
@@ -541,7 +542,7 @@ public class SysUserMapperTest extends BaseMapperTest {
             sysUser.equals(null);
 
             System.out.println("调用sysUser.getSysRole()");
-            Assert.assertNotNull(sysUser.getSysRole());
+            //Assert.assertNotNull(sysUser.getSysRole());
         } finally {
             sqlSession.close();
         }
