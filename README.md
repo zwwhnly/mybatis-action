@@ -24,4 +24,5 @@
 7. [MyBatis从入门到精通(七)：MyBatis动态Sql之choose,where,set标签的用法](http://www.zwwhnly.com/mybatis/2019/07/09/mybatis-study-07.html)
 8. [MyBatis从入门到精通(八)：MyBatis动态Sql之foreach标签的用法](http://www.zwwhnly.com/mybatis/2019/07/10/mybatis-study-08.html)
 9. [MyBatis从入门到精通(九)：MyBatis高级结果映射之一对一映射](http://www.zwwhnly.com/mybatis/2019/07/11/mybatis-study-09.html)
+10. [MyBatis从入门到精通(十)：使用association标签实现嵌套查询](http://www.zwwhnly.com/mybatis/2019/07/12/mybatis-study-10.html)
 
