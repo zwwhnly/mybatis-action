@@ -200,7 +200,7 @@ public interface SysUserMapper {
      * @param id
      * @return
      */
-    SysUser selectUserAndRoleByIdSelect(Long id);
+    SysUserExtend selectUserAndRoleByIdSelect(Long id);
 
     /**
      * 获取所有的用户以及对应的所有角色

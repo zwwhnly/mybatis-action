@@ -35,10 +35,11 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         </association>-->
     </resultMap>
-    <resultMap id="userRoleMapSelect" type="com.zwwhnly.mybatisaction.model.SysUser" extends="sysUserMap">
-        <association property="sysRole" column="{id=role_id}"
+    <resultMap id="userRoleMapSelect" type="com.zwwhnly.mybatisaction.model.SysUserExtend" extends="sysUserMap">
+        <association property="sysRole"
+                     fetchType="lazy"
                      select="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.selectRoleById"
-                     fetchType="lazy"/>
+                     column="{id=role_id}"/>
     </resultMap>
     <resultMap id="userRoleListMap" type="com.zwwhnly.mybatisaction.model.SysUserExtend" extends="sysUserMap">
         <!--<collection property="sysRoleList" columnPrefix="role_"
@@ -327,8 +328,6 @@
                 u.user_name,
                 u.user_password,
                 u.user_email,
-                u.user_info,
-                u.head_img,
                 u.create_time,
                 ur.role_id
         FROM sys_user u

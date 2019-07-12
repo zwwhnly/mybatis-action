@@ -535,14 +535,14 @@ public class SysUserMapperTest extends BaseMapperTest {
         try {
             SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
 
-            SysUser sysUser = sysUserMapper.selectUserAndRoleByIdSelect(1001L);
-            Assert.assertNotNull(sysUser);
+            SysUserExtend sysUserExtend = sysUserMapper.selectUserAndRoleByIdSelect(1001L);
+            Assert.assertNotNull(sysUserExtend);
 
-            System.out.println("调用sysUser.equals(null)");
-            sysUser.equals(null);
+            System.out.println("调用sysUserExtend.equals(null)");
+            sysUserExtend.equals(null);
 
-            System.out.println("调用sysUser.getSysRole()");
-            //Assert.assertNotNull(sysUser.getSysRole());
+            System.out.println("调用sysUserExtend.getSysRole()");
+            Assert.assertNotNull(sysUserExtend.getSysRole());
         } finally {
             sqlSession.close();
         }
