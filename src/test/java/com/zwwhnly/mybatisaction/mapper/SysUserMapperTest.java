@@ -561,9 +561,9 @@ public class SysUserMapperTest extends BaseMapperTest {
                 System.out.println("用户名：" + sysUser.getUserName());
                 for (SysRole sysRole : sysUser.getSysRoleList()) {
                     System.out.println("角色名：" + sysRole.getRoleName());
-                    for (SysPrivilege sysPrivilege : sysRole.getSysPrivilegeList()) {
+                    /*for (SysPrivilege sysPrivilege : sysRole.getSysPrivilegeList()) {
                         System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
-                    }
+                    }*/
                 }
             }
         } finally {
