@@ -1,6 +1,7 @@
 package com.zwwhnly.mybatisaction.mapper;
 
 import com.zwwhnly.mybatisaction.model.SysRole;
+import com.zwwhnly.mybatisaction.model.SysRoleExtend;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public interface SysRoleMapper {
     @Delete("DELETE FROM sys_role WHERE id = #{id}")
     int deleteById(Long id);
 
-    List<SysRole> selectAllRoleAndPrivileges();
+    List<SysRoleExtend> selectAllRoleAndPrivileges();
 
     List<SysRole> selectRoleByUserId(Long userId);
 

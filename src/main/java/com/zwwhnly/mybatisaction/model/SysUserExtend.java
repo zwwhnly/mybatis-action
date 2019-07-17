@@ -11,7 +11,7 @@ public class SysUserExtend extends SysUser {
     /**
      * 用户的角色集合
      */
-    private List<SysRole> sysRoleList;
+    private List<SysRoleExtend> sysRoleList;
 
     public SysRole getSysRole() {
         return sysRole;
@@ -21,11 +21,11 @@ public class SysUserExtend extends SysUser {
         this.sysRole = sysRole;
     }
 
-    public List<SysRole> getSysRoleList() {
+    public List<SysRoleExtend> getSysRoleList() {
         return sysRoleList;
     }
 
-    public void setSysRoleList(List<SysRole> sysRoleList) {
+    public void setSysRoleList(List<SysRoleExtend> sysRoleList) {
         this.sysRoleList = sysRoleList;
     }
 }

@@ -559,11 +559,11 @@ public class SysUserMapperTest extends BaseMapperTest {
             System.out.println("用户数：" + sysUserList.size());
             for (SysUserExtend sysUser : sysUserList) {
                 System.out.println("用户名：" + sysUser.getUserName());
-                for (SysRole sysRole : sysUser.getSysRoleList()) {
-                    System.out.println("角色名：" + sysRole.getRoleName());
-                    /*for (SysPrivilege sysPrivilege : sysRole.getSysPrivilegeList()) {
+                for (SysRoleExtend sysRoleExtend : sysUser.getSysRoleList()) {
+                    System.out.println("角色名：" + sysRoleExtend.getRoleName());
+                    for (SysPrivilege sysPrivilege : sysRoleExtend.getSysPrivilegeList()) {
                         System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
-                    }*/
+                    }
                 }
             }
         } finally {
@@ -580,9 +580,9 @@ public class SysUserMapperTest extends BaseMapperTest {
 
             SysUserExtend sysUserExtend = sysUserMapper.selectAllUserAndRolesSelect(1L);
             System.out.println("用户名：" + sysUserExtend.getUserName());
-            for (SysRole sysRole : sysUserExtend.getSysRoleList()) {
-                System.out.println("角色名：" + sysRole.getRoleName());
-                for (SysPrivilege sysPrivilege : sysRole.getSysPrivilegeList()) {
+            for (SysRoleExtend sysRoleExtend : sysUserExtend.getSysRoleList()) {
+                System.out.println("角色名：" + sysRoleExtend.getRoleName());
+                for (SysPrivilege sysPrivilege : sysRoleExtend.getSysPrivilegeList()) {
                     System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
                 }
             }

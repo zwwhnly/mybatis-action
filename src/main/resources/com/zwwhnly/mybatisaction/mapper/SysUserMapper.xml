@@ -41,13 +41,12 @@
                      column="{id=role_id}"/>
     </resultMap>
     <resultMap id="userRoleListMap" type="com.zwwhnly.mybatisaction.model.SysUserExtend" extends="sysUserMap">
-        <collection property="sysRoleList" columnPrefix="role_"
-                    resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.roleMap">
-        </collection>
         <!--<collection property="sysRoleList" columnPrefix="role_"
-                    ofType="com.zwwhnly.mybatisaction.model.SysRole"
-                    resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.rolePrivilegeListMap">
+                    resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.roleMap">
         </collection>-->
+        <collection property="sysRoleList" columnPrefix="role_"
+                    resultMap="com.zwwhnly.mybatisaction.mapper.SysRoleMapper.rolePrivilegeListMap">
+        </collection>
     </resultMap>
     <resultMap id="userRoleListMapSelect" extends="sysUserMap"
                type="com.zwwhnly.mybatisaction.model.SysUserExtend">
@@ -332,7 +331,7 @@
         INNER JOIN sys_user_role ur ON u.id = ur.user_id
         WHERE u.id = #{id}
     </select>
-    <select id="selectAllUserAndRoles" resultMap="userRoleListMap">
+    <!--<select id="selectAllUserAndRoles" resultMap="userRoleListMap">
         SELECT
             u.id,
             u.user_name,
@@ -347,30 +346,27 @@
         FROM sys_user u
         INNER JOIN sys_user_role ur ON u.id = ur.user_id
         INNER JOIN sys_role r ON ur.role_id = r.id
-    </select>
-    <!--<select id="selectAllUserAndRoles" resultMap="userRoleListMap">
-        SELECT
-        u.id,
-        u.user_name,
-        u.user_password,
-        u.user_email,
-        u.user_info,
-        u.head_img,
-        u.create_time,
-        r.id role_id,
-        r.role_name role_role_name,
-        r.enabled role_enabled,
-        r.create_by role_create_by,
-        r.create_time role_create_time,
-        p.id role_privilege_id,
-        p.privilege_name role_privilege_privilege_name,
-        p.privilege_url role_privilege_privilege_url
+    </select>-->
+    <select id="selectAllUserAndRoles" resultMap="userRoleListMap">
+        SELECT  u.id,
+                u.user_name,
+                u.user_password,
+                u.user_email,
+                u.create_time,
+                r.id role_id,
+                r.role_name role_role_name,
+                r.enabled role_enabled,
+                r.create_by role_create_by,
+                r.create_time role_create_time,
+                p.id role_privilege_id,
+                p.privilege_name role_privilege_privilege_name,
+                p.privilege_url role_privilege_privilege_url
         FROM sys_user u
         INNER JOIN sys_user_role ur ON u.id = ur.user_id
         INNER JOIN sys_role r ON ur.role_id = r.id
         INNER JOIN sys_role_privilege rp ON rp.role_id = r.id
         INNER JOIN sys_privilege p ON p.id = rp.privilege_id
-    </select>-->
+    </select>
     <select id="selectAllUserAndRolesSelect" resultMap="userRoleListMapSelect">
         SELECT
               u.id,

@@ -42,8 +42,6 @@ public class SysRole implements Serializable {
      */
     private Date createTime;
 
-    private List<SysPrivilege> sysPrivilegeList;
-
     /**
      * 创建信息
      */
@@ -95,14 +93,6 @@ public class SysRole implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public List<SysPrivilege> getSysPrivilegeList() {
-        return sysPrivilegeList;
-    }
-
-    public void setSysPrivilegeList(List<SysPrivilege> sysPrivilegeList) {
-        this.sysPrivilegeList = sysPrivilegeList;
     }
 
     public CreateInfo getCreateInfo() {
