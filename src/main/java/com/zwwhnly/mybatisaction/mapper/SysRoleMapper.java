@@ -55,5 +55,5 @@ public interface SysRoleMapper {
      * @param userId
      * @return
      */
-    List<SysRole> selectRoleByUserIdChoose(Long userId);
+    List<SysRoleExtend> selectRoleByUserIdChoose(Long userId);
 }

@@ -103,21 +103,24 @@ public class SysRoleMapperTest extends BaseMapperTest {
 
             // 将id=2的角色的enabled赋值为0
             SysRole sysRole = sysRoleMapper.selectById(2L);
-            sysRole.setEnabled(Enabled.disabled);
+            sysRole.setEnabled(0);
             sysRoleMapper.updateById(sysRole);
 
-            List<SysRole> sysRoleList = sysRoleMapper.selectRoleByUserIdChoose(1L);
-            for (SysRole item : sysRoleList) {
+            // 获取用户id为1的角色
+            List<SysRoleExtend> sysRoleExtendList = sysRoleMapper.selectRoleByUserIdChoose(1L);
+            for (SysRoleExtend item : sysRoleExtendList) {
                 System.out.println("角色名：" + item.getRoleName());
                 if (item.getId().equals(1L)) {
-                    //Assert.assertNotNull(item.getSysPrivilegeList());
+                    // 第一个角色是启用的，所以存在权限信息
+                    Assert.assertNotNull(item.getSysPrivilegeList());
                 } else if (item.getId().equals(2L)) {
-                    //Assert.assertNull(item.getSysPrivilegeList());
+                    // 第二个角色是禁用的，所以权限为null
+                    Assert.assertNull(item.getSysPrivilegeList());
                     continue;
                 }
-                /*for (SysPrivilege sysPrivilege : item.getSysPrivilegeList()) {
+                for (SysPrivilege sysPrivilege : item.getSysPrivilegeList()) {
                     System.out.println("权限名：" + sysPrivilege.getPrivilegeName());
-                }*/
+                }
             }
         } finally {
             sqlSession.close();
@@ -135,7 +138,8 @@ public class SysRoleMapperTest extends BaseMapperTest {
             Assert.assertEquals(Enabled.enabled, sysRole.getEnabled());
 
             // 修改角色的enabled为disabled
-            sysRole.setEnabled(Enabled.disabled);
+            //sysRole.setEnabled(Enabled.disabled);
+            sysRole.setEnabled(0);
             sysRoleMapper.updateById(sysRole);
 
             sysRole = sysRoleMapper.selectById(2L);

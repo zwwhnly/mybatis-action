@@ -231,7 +231,8 @@ public class SysUserMapperTest extends BaseMapperTest {
             SysUser sysUser = new SysUser();
             sysUser.setId(1L);
             SysRole sysRole = new SysRole();
-            sysRole.setEnabled(Enabled.enabled);
+            //sysRole.setEnabled(Enabled.enabled);
+            sysRole.setEnabled(1);
 
             List<SysRole> sysRoleList = sysUserMapper.selectRolesByUserAndRole(sysUser, sysRole);
 

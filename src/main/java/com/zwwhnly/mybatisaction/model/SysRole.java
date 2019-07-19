@@ -25,12 +25,12 @@ public class SysRole implements Serializable {
     /**
      * 有效标志
      */
-    //private Integer enabled;
+    private Integer enabled;
 
     /**
      * 有效标志
      */
-    private Enabled enabled;
+    //private Enabled enabled;
 
     /**
      * 创建人
@@ -63,21 +63,21 @@ public class SysRole implements Serializable {
         this.roleName = roleName;
     }
 
-    /*public Integer getEnabled() {
+    public Integer getEnabled() {
         return enabled;
     }
 
     public void setEnabled(Integer enabled) {
         this.enabled = enabled;
-    }*/
+    }
 
-    public Enabled getEnabled() {
+    /*public Enabled getEnabled() {
         return enabled;
     }
 
     public void setEnabled(Enabled enabled) {
         this.enabled = enabled;
-    }
+    }*/
 
     public Long getCreateBy() {
         return createBy;

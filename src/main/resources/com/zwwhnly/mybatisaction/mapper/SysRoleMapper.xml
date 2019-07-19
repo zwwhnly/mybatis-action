@@ -18,6 +18,13 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         </association>
     </resultMap>
+    <resultMap id="roleMapExtend" type="com.zwwhnly.mybatisaction.model.SysRoleExtend">
+        <id property="id" column="id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="enabled" column="enabled"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
     <resultMap id="rolePrivilegeListMap" extends="roleMap"
                type="com.zwwhnly.mybatisaction.model.SysRoleExtend">
         <collection property="sysPrivilegeList" columnPrefix="privilege_"
@@ -30,10 +37,10 @@
                     select="com.zwwhnly.mybatisaction.mapper.SysPrivilegeMapper.selectPrivilegeByRoleId"/>
     </resultMap>
     <resultMap id="rolePrivilegeListMapChoose"
-               type="com.zwwhnly.mybatisaction.model.SysRole">
+               type="com.zwwhnly.mybatisaction.model.SysRoleExtend">
         <discriminator column="enabled" javaType="int">
             <case value="1" resultMap="rolePrivilegeListMapSelect"/>
-            <case value="0" resultMap="roleMap"/>
+            <case value="0" resultMap="roleMapExtend"/>
         </discriminator>
     </resultMap>
     <select id="selectRoleById" resultMap="roleMap">
