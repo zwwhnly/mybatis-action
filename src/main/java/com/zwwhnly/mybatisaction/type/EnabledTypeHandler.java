@@ -1,6 +1,5 @@
 package com.zwwhnly.mybatisaction.type;
 
-import org.apache.ibatis.type.EnumOrdinalTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 

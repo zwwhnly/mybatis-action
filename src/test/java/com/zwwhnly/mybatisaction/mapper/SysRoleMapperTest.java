@@ -103,7 +103,7 @@ public class SysRoleMapperTest extends BaseMapperTest {
 
             // 将id=2的角色的enabled赋值为0
             SysRole sysRole = sysRoleMapper.selectById(2L);
-            sysRole.setEnabled(0);
+            sysRole.setEnabled(Enabled.disabled);
             sysRoleMapper.updateById(sysRole);
 
             // 获取用户id为1的角色
@@ -134,16 +134,20 @@ public class SysRoleMapperTest extends BaseMapperTest {
         try {
             SysRoleMapper sysRoleMapper = sqlSession.getMapper(SysRoleMapper.class);
 
+            // 先查询出id=2的角色，然后修改角色的enabled值为disabled
             SysRole sysRole = sysRoleMapper.selectById(2L);
             Assert.assertEquals(Enabled.enabled, sysRole.getEnabled());
 
             // 修改角色的enabled为disabled
-            //sysRole.setEnabled(Enabled.disabled);
-            sysRole.setEnabled(0);
-            sysRoleMapper.updateById(sysRole);
+            sysRole.setEnabled(Enabled.disabled);
 
-            sysRole = sysRoleMapper.selectById(2L);
-            Assert.assertEquals(Enabled.disabled, sysRole.getEnabled());
+            if (sysRole.getEnabled() == Enabled.disabled || sysRole.getEnabled() == Enabled.enabled) {
+                sysRoleMapper.updateById(sysRole);
+            } else {
+                throw new Exception("无效的enabled值");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             sqlSession.close();
         }
