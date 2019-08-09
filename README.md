@@ -3,7 +3,7 @@
 该开源项目包含大量MyBatis实战的具体示例代码，旨在帮助大家一步一步的学习MyBatis这门技术。
 
 目前的示例代码主要来自于刘增辉老师所著的《MyBatis从入门到精通》一书，也就是下面这本。
-![](https://img2018.cnblogs.com/blog/424537/201907/424537-20190711100832062-1032140749.jpg)
+![](https://images.zwwhnly.com/picture/424537-20190711100832062-1032140749.jpg)
 
 ### 学习过程
 
@@ -25,4 +25,7 @@
 8. [MyBatis从入门到精通(八)：MyBatis动态Sql之foreach标签的用法](http://www.zwwhnly.com/mybatis/2019/07/10/mybatis-study-08.html)
 9. [MyBatis从入门到精通(九)：MyBatis高级结果映射之一对一映射](http://www.zwwhnly.com/mybatis/2019/07/11/mybatis-study-09.html)
 10. [MyBatis从入门到精通(十)：使用association标签实现嵌套查询](http://www.zwwhnly.com/mybatis/2019/07/12/mybatis-study-10.html)
-
+11. [MyBatis从入门到精通(十一)：MyBatis高级结果映射之一对多映射](http://www.zwwhnly.com/mybatis/2019/07/16/mybatis-study-11.html)
+12. [MyBatis从入门到精通(十二)：使用collection标签实现嵌套查询](http://www.zwwhnly.com/mybatis/2019/07/17/mybatis-study-12.html)
+13. [MyBatis从入门到精通(十三)：使用discriminator鉴别器映射](http://www.zwwhnly.com/mybatis/2019/07/19/mybatis-study-13.html)
+14. [MyBatis从入门到精通(十四)：在MyBatis中使用类型处理器](http://www.zwwhnly.com/mybatis/2019/07/24/mybatis-study-14.html)
